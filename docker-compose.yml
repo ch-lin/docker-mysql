@@ -21,52 +21,32 @@
 # THE SOFTWARE.
 
 services:
-  demo-db-1:
-    image: demo-db
+  test-db:
+    image: test-db
     build:
-      context: ./demodb
+      context: ./test-db
       args:
         MYSQL_USERNAME: "${MYSQL_USERNAME}"
         MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-    container_name: demo-db-1
-    hostname: demo-db-1
+        MYSQL_DB_NAME: "${MYSQL_DB_NAME}"
+    container_name: test-db
+    hostname: test-db
     stdin_open: true
     tty: true
     restart: unless-stopped
     privileged: true
     networks:
-      demo-db-network:
-        ipv4_address: 192.168.12.10
+      test-db-network:
+        ipv4_address: 192.168.13.5
     ports:
-      - "${DB_PORT1}:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-
-  demo-db-2:
-    image: demo-db
-    build:
-      context: ./demodb
-      args:
-        MYSQL_USERNAME: "${MYSQL_USERNAME}"
-        MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-    container_name: demo-db-2
-    hostname: demo-db-2
-    stdin_open: true
-    tty: true
-    restart: unless-stopped
-    privileged: true
-    networks:
-      demo-db-network:
-        ipv4_address: 192.168.12.11
-    ports:
-      - "${DB_PORT2}:3306"
+      - "${DB_PORT}:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
 networks:
-  demo-db-network:
-    name: demo-db-network
+  test-db-network:
+    name: test-db-network
     ipam:
       driver: default
       config:
-        - subnet: "192.168.12.0/24"
+        - subnet: "192.168.13.0/24"

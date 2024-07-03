@@ -20,10 +20,10 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 -- THE SOFTWARE.
 
-create database demo;
-USE demo;
+create database ___db___;
+USE  ___db___;
 CREATE USER if NOT EXISTS '___user___'@'%' IDENTIFIED BY '___pw___';
-GRANT ALL ON demo.* TO '___user___'@'%';
+GRANT ALL ON  ___db___.* TO '___user___'@'%';
 CREATE TABLE CustomerDetails(id int, name VARCHAR(20) NOT NULL, address VARCHAR(100)  NOT NULL);
 CREATE TABLE PaymentMethod(id int, card VARCHAR(16) NOT NULL, PRIMARY KEY(id));
 FLUSH PRIVILEGES;

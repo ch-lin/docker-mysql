@@ -26,6 +26,7 @@ FROM $BASE_CONTAINER
 
 ARG MYSQL_USERNAME
 ARG MYSQL_PASSWORD
+ARG MYSQL_DB_NAME
 
 LABEL maintainer="Che-Hung Lin"
 
@@ -35,7 +36,8 @@ COPY ./db.sql /docker-entrypoint-initdb.d/db.sql
 WORKDIR /root
 RUN chmod 644 /etc/mysql/conf.d/my.cnf && chmod 777 /docker-entrypoint-initdb.d/db.sql
 RUN sed -i "s#___user___#${MYSQL_USERNAME}#g" /docker-entrypoint-initdb.d/db.sql; \
-    sed -i "s#___pw___#${MYSQL_PASSWORD}#g" /docker-entrypoint-initdb.d/db.sql;
+    sed -i "s#___pw___#${MYSQL_PASSWORD}#g" /docker-entrypoint-initdb.d/db.sql; \
+    sed -i "s#___db___#${MYSQL_DB_NAME}#g" /docker-entrypoint-initdb.d/db.sql;
 
 EXPOSE 3306
 
